@@ -32,7 +32,7 @@ class Search extends React.Component {
       <div>
         <form>
         <input type="text" placeholder="Search for a movie..." onChange={this.onInputChange.bind(this)} />
-        <button onSubmit={this.onSearch.bind(this)} onClick={this.onSearch.bind(this)}>Search!</button>
+        <button type="submit" onSubmit={this.onSearch.bind(this)} onClick={this.onSearch.bind(this)}>Search!</button>
         </form>
       </div>
     );

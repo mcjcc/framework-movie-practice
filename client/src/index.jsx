@@ -3,6 +3,7 @@ import ReactDOM  from 'react-dom';
 
 import Movie from './components/Movie.jsx';
 import Search from './components/Search.jsx';
+import AddMovie from './components/AddMovie.jsx';
 
 var movies = [
   {title: 'Mean Girls'},
@@ -55,7 +56,7 @@ class MovieList extends React.Component {
 
     return (
       <div>
-
+        <AddMovie />
         <Search onSearch={this.search.bind(this)} />
         {movies}
       </div>
