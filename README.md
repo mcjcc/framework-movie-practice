@@ -8,8 +8,8 @@
 - [x] After a user submits the search, display all matches (or partial matches) to that title.
 - [x] Bonus: Handle the case of no movie by that name found gracefully.
 - [x] Add an input field for users to add movies.
-- [ ] Add a button to each list item that allows the user to toggle a 'watched' property.
-- [ ] Add two buttons to allow the users to toggle between a list of 'watched' movies and movies 'to watch'.
+- [x] Add a button to each list item that allows the user to toggle a 'watched' property.
+- [x] Add two buttons to allow the users to toggle between a list of 'watched' movies and movies 'to watch'.
 - [ ] Add a panel of movie information that appears when the title is clicked (consider starting with hardcoded information)
 
 You can use the following data:

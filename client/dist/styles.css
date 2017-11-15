@@ -1,0 +1,20 @@
+button.watched{
+  background-color: green;
+  color: white;
+}
+
+div.watched.showWatched {
+  display:block;
+}
+
+div.watched.showUnwatched {
+  display: none;
+}
+
+div.showUnwatched {
+  display: block;
+}
+
+div.showWatched{
+  display: none;
+}
