@@ -4,8 +4,8 @@
 ## Level 1 - Front end
 
 - [x] Display a list of movies from data hardcoded in your index.jsx.
-- [x] Add a search bar so that a user may see if a movie is in the list. 
-- [ ] After a user submits the search, display all matches (or partial matches) to that title.
+- [x] Add a search bar so that a user may see if a movie is in the list.
+- [x] After a user submits the search, display all matches (or partial matches) to that title.
 - [ ] Bonus: Handle the case of no movie by that name found gracefully.
 - [ ] Add an input field for users to add movies.
 - [ ] Add a button to each list item that allows the user to toggle a 'watched' property.
