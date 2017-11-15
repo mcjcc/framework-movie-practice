@@ -1,6 +1,6 @@
 import React from 'react';
 
-var Movie = function(props) {
+var Movie = (props) => {
   return (
     <div>
       {props.title}

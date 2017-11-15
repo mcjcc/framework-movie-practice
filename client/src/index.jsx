@@ -15,15 +15,39 @@ var movies = [
 class MovieList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      movies: movies
+    };
+  }
+
+
+
+  search(term) {
+    console.log('search!!!!!!!!! from index.jsx');
+    console.log('term', term);
+    console.log('this.state', this.state);
+    if (term !== '') {
+      var searched = movies.filter((movieObj) => {
+        return movieObj.title.includes(term) || movieObj.title.toLowerCase().includes(term);
+      });
+
+      this.setState({
+        movies: searched
+      })
+    } else {
+      this.setState({
+        movies: movies
+      })
+    }
   }
 
   render() {
     return (
       <div>
 
-        <Search />
+        <Search onSearch={this.search.bind(this)} />
         {
-          this.props.titles.map(function(movie, index){
+          this.state.movies.map(function(movie, index){
             return (<Movie key={index} title={movie.title}/>);
           })
         }
@@ -32,4 +56,4 @@ class MovieList extends React.Component {
   }
 }
 
-ReactDOM.render( <MovieList titles={movies} />, document.getElementById('app'));
+ReactDOM.render( <MovieList />, document.getElementById('app'));
