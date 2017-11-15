@@ -42,15 +42,22 @@ class MovieList extends React.Component {
   }
 
   render() {
+    var movies;
+    console.log('this.state.movies', this.state.movies);
+    if (this.state.movies.length > 0) {
+      var movies = this.state.movies.map(function(movie, index){
+        return (<Movie key={index} title={movie.title}/>);
+      });
+    } else {
+      console.log('sorry no movies found');
+      var movies = 'Sorry no movies found!';
+    }
+
     return (
       <div>
 
         <Search onSearch={this.search.bind(this)} />
-        {
-          this.state.movies.map(function(movie, index){
-            return (<Movie key={index} title={movie.title}/>);
-          })
-        }
+        {movies}
       </div>
     );
   }
