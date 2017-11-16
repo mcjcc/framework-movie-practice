@@ -39,7 +39,19 @@ app.get('/load', function(req, res) {
       var parsedData = JSON.parse(response.body);
 
       parsedData.results.forEach(function(movie) {
-        movies.push(movie);
+        let newMovieObj = {
+          title: movie.title,
+          details: {
+            original_language: movie.original_language,
+            original_title: movie.original_title,
+            overview: movie.overview,
+            release_data: movie.release_date,
+            vote_average: movie.vote_average,
+            popularity: movie.popularity
+          },
+          watched: false
+        }
+        movies.push(newMovieObj);
       })
       res.send(movies);
     }

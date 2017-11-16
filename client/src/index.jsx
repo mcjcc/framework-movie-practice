@@ -28,7 +28,8 @@ class MovieList extends React.Component {
   componentDidMount() {
     // hit /movies (get) endpoint and on complete, set state movies with the response.body object
     // var setState = this.setState.bind(this);
-    this.getMovies();
+    // this.getMovies();
+    this.loadMovies();
 
   }
 
@@ -50,6 +51,16 @@ class MovieList extends React.Component {
         movies: movies
       })
     }
+  }
+
+  loadMovies() {
+    $.ajax({
+      url: '/load',
+      method: 'GET',
+    }).done(function(data) {
+      movies = data;
+      this.setState({movies: movies, loading: false});
+    }.bind(this));
   }
 
   getMovies() {
@@ -112,7 +123,7 @@ class MovieList extends React.Component {
     // this code takes care of the search results rendering
     if (this.state.movies.length > 0 && this.state.loading === false) {
       var movies = this.state.movies.map(function(movie, index){
-        return (<Movie key={index} index={index} title={movie.title} watched={movie.watched} displayWatched={displayWatched} onToggle={toggleWatch} movieInfo={movie.info}/> );
+        return (<Movie key={index} index={index} title={movie.title} watched={movie.watched} displayWatched={displayWatched} onToggle={toggleWatch} movieDetails={movie.details}/> );
       });
     } else {
       var movies = 'Sorry no movies found!';

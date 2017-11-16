@@ -1,5 +1,7 @@
 import React from 'react';
 
+import MovieDetails from './MovieDetails.jsx';
+
 class Movie extends React.Component {
   constructor(props) {
     super(props);
@@ -21,17 +23,12 @@ class Movie extends React.Component {
   render () {
     var watched = this.props.watched ? 'watched' : '';
     var displayWatched = this.props.displayWatched ? 'showWatched' : 'showUnwatched';
-    var displayInfo = this.state.displayInfo ? 'displayInfo' : '';
+
     return (
       <div className={`${watched} ${displayWatched} movieItem`} >
         <span className="title" onClick={this.displayInfoHandler.bind(this)}>{this.props.title}</span>
         <button className={watched} onClick={this.watchBtnHandler.bind(this)}>Watched!</button>
-        <div className={`${displayInfo} movieInfo`}>
-          <div><strong>Year:</strong>{this.props.movieInfo.year}</div>
-          <div><strong>Runtime:</strong>{this.props.movieInfo.runtime}</div>
-          <div><strong>Metascore:</strong>{this.props.movieInfo.year}</div>
-          <div><strong>imdbRating:</strong>{this.props.movieInfo.year}</div>
-        </div>
+        <MovieDetails details={this.props.movieDetails} displayDetails={this.state.displayInfo}  />
       </div>
     );
   }

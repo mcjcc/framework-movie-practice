@@ -19,11 +19,11 @@ div.showWatched{
   display: none;
 }
 
-div.movieInfo {
+div.movieDetails {
   display: none;
 }
 
-div.movieInfo.displayInfo {
+div.movieDetails.displayDetails {
   display: block;
 }
 
