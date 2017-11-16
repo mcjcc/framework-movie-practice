@@ -1,30 +1,42 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
 
+import $ from 'jquery';
 import Movie from './components/Movie.jsx';
 import Search from './components/Search.jsx';
 import AddMovie from './components/AddMovie.jsx';
 
-var movies = [
-  {title: 'Mean Girls', watched: false, info: {year: '1995', runtime: '107 min', metascore: '46', imdbRating: '6.2'}},
-  {title: 'Hackers', watched: true, info: {year: '3252', runtime: '127 min', metascore: '60', imdbRating: '7.4'}},
-  {title: 'The Grey', watched: false, info:{year: '4363', runtime: '87 min', metascore: '59', imdbRating: '5.7'}},
-  {title: 'Sunshine', watched: true, info:{year: '2536', runtime: '97 min', metascore: '25', imdbRating: '1.4'}},
-  {title: 'Ex Machina', watched: false, info:{year: '854', runtime: '121 min', metascore: '98', imdbRating: '9.8'}},
-];
+// var movies = [
+//   {title: 'Mean Girls', watched: false, info: {year: '1995', runtime: '107 min', metascore: '46', imdbRating: '6.2'}},
+//   {title: 'Hackers', watched: true, info: {year: '3252', runtime: '127 min', metascore: '60', imdbRating: '7.4'}},
+//   {title: 'The Grey', watched: false, info:{year: '4363', runtime: '87 min', metascore: '59', imdbRating: '5.7'}},
+//   {title: 'Sunshine', watched: true, info:{year: '2536', runtime: '97 min', metascore: '25', imdbRating: '1.4'}},
+//   {title: 'Ex Machina', watched: false, info:{year: '854', runtime: '121 min', metascore: '98', imdbRating: '9.8'}},
+// ];
+var movies;
 
 class MovieList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       movies: [],
-      displayWatched: true
+      displayWatched: true,
+      loading: true
     };
   }
 
-  componentWillMount() {
-
-    this.setState({movies:movies});
+  componentDidMount() {
+    // hit /movies (get) endpoint and on complete, set state movies with the response.body object
+    // var setState = this.setState.bind(this);
+    $.ajax({
+      url: '/movies',
+      method: 'GET',
+    }).done(function(data){
+      movies = data;
+      console.log(data);
+      this.setState({movies:movies, loading: false});
+    }.bind(this));
+    // this.setState({movies:movies});
   }
 
   search(term) {
@@ -77,13 +89,19 @@ class MovieList extends React.Component {
     var toggleWatch = this.toggleWatch.bind(this);
     var displayWatched = this.state.displayWatched;
 
-    if (this.state.movies.length > 0) {
+    if (this.state.loading === true) {
+      return (<div>Loading...</div>);
+    }
+
+    if (this.state.movies.length > 0 && this.state.loading === false) {
       var movies = this.state.movies.map(function(movie, index){
         return (<Movie key={index} index={index} title={movie.title} watched={movie.watched} displayWatched={displayWatched} onToggle={toggleWatch} movieInfo={movie.info}/> );
       });
     } else {
       var movies = 'Sorry no movies found!';
     }
+
+
 
     return (
       <div>
