@@ -6,11 +6,11 @@ import Search from './components/Search.jsx';
 import AddMovie from './components/AddMovie.jsx';
 
 var movies = [
-  {title: 'Mean Girls', watched: false},
-  {title: 'Hackers', watched: true},
-  {title: 'The Grey', watched: false},
-  {title: 'Sunshine', watched: true},
-  {title: 'Ex Machina', watched: false},
+  {title: 'Mean Girls', watched: false, info: {year: '1995', runtime: '107 min', metascore: '46', imdbRating: '6.2'}},
+  {title: 'Hackers', watched: true, info: {year: '3252', runtime: '127 min', metascore: '60', imdbRating: '7.4'}},
+  {title: 'The Grey', watched: false, info:{year: '4363', runtime: '87 min', metascore: '59', imdbRating: '5.7'}},
+  {title: 'Sunshine', watched: true, info:{year: '2536', runtime: '97 min', metascore: '25', imdbRating: '1.4'}},
+  {title: 'Ex Machina', watched: false, info:{year: '854', runtime: '121 min', metascore: '98', imdbRating: '9.8'}},
 ];
 
 class MovieList extends React.Component {
@@ -79,7 +79,7 @@ class MovieList extends React.Component {
 
     if (this.state.movies.length > 0) {
       var movies = this.state.movies.map(function(movie, index){
-        return (<Movie key={index} index={index} title={movie.title} watched={movie.watched} displayWatched={displayWatched} onToggle={toggleWatch} /> );
+        return (<Movie key={index} index={index} title={movie.title} watched={movie.watched} displayWatched={displayWatched} onToggle={toggleWatch} movieInfo={movie.info}/> );
       });
     } else {
       var movies = 'Sorry no movies found!';

@@ -18,3 +18,16 @@ div.showUnwatched {
 div.showWatched{
   display: none;
 }
+
+div.movieInfo {
+  display: none;
+}
+
+div.movieInfo.displayInfo {
+  display: block;
+}
+
+.movieItem .title{
+  font-size:2.5rem;
+  cursor: pointer;
+}
