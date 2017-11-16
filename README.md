@@ -40,9 +40,9 @@ var movies = [
 
 
 ## Level 3 - API
-- [ ] Go to https://www.themoviedb.org/documentation/api to learn more about the API you will be using. Sign-up for a new API Key. If you do not receive one within 15 minutes ask a proctor for assistance.
-- [ ] Write code in movieAPI.js necessary to call the API (you may use the 'now_playing' endpoint) and retrieve movie results
-- [ ] Create a new Express GET route called /load in which you make a call to the API. Put the retrieved data into the hardcoded movies array in Express index.js
+- [x] Go to https://www.themoviedb.org/documentation/api to learn more about the API you will be using. Sign-up for a new API Key. If you do not receive one within 15 minutes ask a proctor for assistance.
+- [x] Write code in movieAPI.js necessary to call the API (you may use the 'now_playing' endpoint) and retrieve movie results
+- [x] Create a new Express GET route called /load in which you make a call to the API. Put the retrieved data into the hardcoded movies array in Express index.js
 - [ ] Modify your index.jsx file accordingly to handle the loaded API data. You should not longer have dummy data anywhere.
 
 
