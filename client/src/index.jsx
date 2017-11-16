@@ -28,15 +28,8 @@ class MovieList extends React.Component {
   componentDidMount() {
     // hit /movies (get) endpoint and on complete, set state movies with the response.body object
     // var setState = this.setState.bind(this);
-    $.ajax({
-      url: '/movies',
-      method: 'GET',
-    }).done(function(data){
-      movies = data;
-      console.log(data);
-      this.setState({movies:movies, loading: false});
-    }.bind(this));
-    // this.setState({movies:movies});
+    this.getMovies();
+
   }
 
   search(term) {
@@ -59,6 +52,28 @@ class MovieList extends React.Component {
     }
   }
 
+  getMovies() {
+    $.ajax({
+      url: '/movies',
+      method: 'GET',
+    }).done(function(data){
+      movies = data;
+      console.log(data);
+      this.setState({movies:movies, loading: false});
+    }.bind(this));
+  }
+
+  addMovie(term) {
+    console.log('addMovie term: ', term);
+    $.ajax({
+      url: '/movie',
+      method: 'POST',
+      data: JSON.stringify(term)
+    }).done(function(msg) {
+      console.log('movie successfully POSTed');
+
+    });
+  }
 
   toggleWatch(movie, index) {
     console.log('toggle movie:', movie);
@@ -89,10 +104,12 @@ class MovieList extends React.Component {
     var toggleWatch = this.toggleWatch.bind(this);
     var displayWatched = this.state.displayWatched;
 
+    // if ajax to get data from database has not completed yet, show a loading message
     if (this.state.loading === true) {
       return (<div>Loading...</div>);
     }
 
+    // this code takes care of the search results rendering
     if (this.state.movies.length > 0 && this.state.loading === false) {
       var movies = this.state.movies.map(function(movie, index){
         return (<Movie key={index} index={index} title={movie.title} watched={movie.watched} displayWatched={displayWatched} onToggle={toggleWatch} movieInfo={movie.info}/> );
@@ -101,12 +118,9 @@ class MovieList extends React.Component {
       var movies = 'Sorry no movies found!';
     }
 
-
-
     return (
       <div>
-
-        <AddMovie />
+        <AddMovie onAdd={this.addMovie.bind(this)} />
         <Search onSearch={this.search.bind(this)} />
         <br /><br />
         <div>

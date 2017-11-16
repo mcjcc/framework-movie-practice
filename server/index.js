@@ -19,6 +19,10 @@ var movies = [
 
 
 app.get('/movies', function(req, res) {
-  res.statusCode = 200;  
+  res.statusCode = 200;
   res.send(movies);
+});
+
+app.post('/movie', function(req, res) {
+
 });
