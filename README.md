@@ -54,9 +54,9 @@ var movies = [
 
 
 ## Level 5 - Integration
-- [ ] Modify the 3 Express routes so that they are no longer using or accessing any hardcoded data.
-- [ ] The /load route should be retrieving from the API and inserting into the DB
-- [ ] The get /movies route should be retrieving from the db
+- [x] Modify the 3 Express routes so that they are no longer using or accessing any hardcoded data.
+- [x] The /load route should be retrieving from the API and inserting into the DB
+- [x] The get /movies route should be retrieving from the db
 - [ ] The post /movie route should be inserting into the db
-- [ ] Modify your front end code to only use these routes for both getting and sending data
-- [ ] All other front end functionality (i.e. search, add movie, toggle watched) should still be fully functioning
+- [x] Modify your front end code to only use these routes for both getting and sending data
+- [x] All other front end functionality (i.e. search, add movie, toggle watched) should still be fully functioning

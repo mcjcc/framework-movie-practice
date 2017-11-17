@@ -8,7 +8,7 @@ USE Movie;
 -- CREATE TABLES
 CREATE TABLE Movies (
   id INT UNIQUE AUTO_INCREMENT NOT NULL,
-  title VARCHAR(50) NOT NULL,
+  title VARCHAR(50) NOT NULL UNIQUE,
   original_title VARCHAR(50),
   original_language VARCHAR(20),
   overview TEXT,

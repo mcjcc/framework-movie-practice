@@ -24,8 +24,33 @@ app.listen(3000, function () { console.log('MovieList app listening on port 3000
 var movies = [];
 
 app.get('/movies', function(req, res) {
+  let localMovies = [];
 
-  res.send(movies);
+  // retrieve movies from dbs
+  db.getAllMovies()
+  .then((movies)=>{
+    console.log('movies.forEach', movies);
+    movies.forEach(function(movie){
+      console.log('movie:  ', movie);
+      console.log('movie.dataValues.title:  ', movie.dataValues.title);
+      console.log('movie.title:  ', movie.title);
+      // console.log('movies.movie.dataValues', movie.movie.dataValues);
+      let newMovieObj = {
+        title: movie.title,
+        details: {
+          original_language: movie.original_language,
+          original_title: movie.original_title,
+          overview: movie.overview,
+          release_date: movie.release_date,
+          vote_average: movie.vote_average,
+          popularity: movie.popularity
+        },
+        watched: false
+      };
+      localMovies.push(newMovieObj);
+    });
+    res.send(localMovies);
+  })
 });
 
 app.post('/movie', function(req, res) {
@@ -40,22 +65,27 @@ app.get('/load', function(req, res) {
       res.statusCode = 200;
       var parsedData = JSON.parse(response.body);
 
-      parsedData.results.forEach(function(movie) {
+      Promise.all(
+        parsedData.results.map(function(movie) {
         let newMovieObj = {
           title: movie.title,
-          details: {
-            original_language: movie.original_language,
-            original_title: movie.original_title,
-            overview: movie.overview,
-            release_date: movie.release_date,
-            vote_average: movie.vote_average,
-            popularity: movie.popularity
-          },
+          original_language: movie.original_language,
+          original_title: movie.original_title,
+          overview: movie.overview,
+          release_date: movie.release_date,
+          vote_average: movie.vote_average,
+          popularity: movie.popularity,
           watched: false
         }
-        movies.push(newMovieObj);
+        return db.saveMovie(newMovieObj);
       })
-      res.send(movies);
+    ).then(() => {
+      console.log('promise all responded');
+      res.send('data saved');
+
+    });
+
+      // Promise.all(parsedData.results)
     }
   });
 });

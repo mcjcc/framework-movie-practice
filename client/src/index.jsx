@@ -58,12 +58,14 @@ class MovieList extends React.Component {
       url: '/load',
       method: 'GET',
     }).done(function(data) {
-      movies = data;
-      this.setState({movies: movies, loading: false});
+      // movies = data;
+      // this.setState({movies: movies, loading: false});
+      this.getMovies();
     }.bind(this));
   }
 
   getMovies() {
+    console.log('inside getMovies');
     $.ajax({
       url: '/movies',
       method: 'GET',
