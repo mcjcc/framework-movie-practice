@@ -26,17 +26,11 @@ class MovieList extends React.Component {
   }
 
   componentDidMount() {
-    // hit /movies (get) endpoint and on complete, set state movies with the response.body object
-    // var setState = this.setState.bind(this);
-    // this.getMovies();
     this.loadMovies();
-
   }
 
   search(term) {
-    console.log('search!!!!!!!!! from index.jsx');
-    console.log('term', term);
-    console.log('this.state', this.state);
+
     term = term.toLowerCase();
     if (term !== '') {
       var searched = this.state.movies.filter((movieObj) => {
@@ -56,19 +50,16 @@ class MovieList extends React.Component {
   loadMovies() {
     $.ajax({
       url: '/load',
-      method: 'GET',
+      type: 'GET',
     }).done(function(data) {
-      // movies = data;
-      // this.setState({movies: movies, loading: false});
       this.getMovies();
     }.bind(this));
   }
 
   getMovies() {
-    console.log('inside getMovies');
     $.ajax({
       url: '/movies',
-      method: 'GET',
+      type: 'GET',
     }).done(function(data){
       movies = data;
       console.log(data);
@@ -77,23 +68,22 @@ class MovieList extends React.Component {
   }
 
   addMovie(term) {
-    console.log('addMovie term: ', term);
+
+    var data = {
+      title: term
+    };
+
     $.ajax({
       url: '/movie',
-      method: 'POST',
-      data: JSON.stringify(term)
+      type: 'POST',
+      data: data
     }).done(function(msg) {
       console.log('movie successfully POSTed');
-
     });
   }
 
   toggleWatch(movie, index) {
-    console.log('toggle movie:', movie);
-
-    // console.log('statemovies[index]', this.state.movies[index]);
     this.state.movies[index].watched = !this.state.movies[index].watched;
-
     this.setState({
       movies: this.state.movies
     });
@@ -113,7 +103,6 @@ class MovieList extends React.Component {
 
   render() {
     var movies;
-    console.log('this.state.movies', this.state.movies);
     var toggleWatch = this.toggleWatch.bind(this);
     var displayWatched = this.state.displayWatched;
 

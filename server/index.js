@@ -9,17 +9,12 @@ const db = require('../database');
 
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.listen(3000, function () { console.log('MovieList app listening on port 3000!') });
 
-
-// var movies = [
-//   {title: 'Mean Girls', watched: false, info: {year: '1995', runtime: '107 min', metascore: '46', imdbRating: '6.2'}},
-//   {title: 'Hackers', watched: true, info: {year: '3252', runtime: '127 min', metascore: '60', imdbRating: '7.4'}},
-//   {title: 'The Grey', watched: false, info:{year: '4363', runtime: '87 min', metascore: '59', imdbRating: '5.7'}},
-//   {title: 'Sunshine', watched: true, info:{year: '2536', runtime: '97 min', metascore: '25', imdbRating: '1.4'}},
-//   {title: 'Ex Machina', watched: false, info:{year: '854', runtime: '121 min', metascore: '98', imdbRating: '9.8'}},
-// ];
 
 var movies = [];
 
@@ -31,10 +26,6 @@ app.get('/movies', function(req, res) {
   .then((movies)=>{
     console.log('movies.forEach', movies);
     movies.forEach(function(movie){
-      console.log('movie:  ', movie);
-      console.log('movie.dataValues.title:  ', movie.dataValues.title);
-      console.log('movie.title:  ', movie.title);
-      // console.log('movies.movie.dataValues', movie.movie.dataValues);
       let newMovieObj = {
         title: movie.title,
         details: {
@@ -54,7 +45,13 @@ app.get('/movies', function(req, res) {
 });
 
 app.post('/movie', function(req, res) {
-
+  console.log(req);
+  var movieObj = req.body;
+  console.log('movieObj', movieObj);
+  db.saveMovie(movieObj)
+    .then(()=>{
+      return;
+    });
 });
 
 app.get('/load', function(req, res) {
@@ -85,7 +82,6 @@ app.get('/load', function(req, res) {
 
     });
 
-      // Promise.all(parsedData.results)
     }
   });
 });
