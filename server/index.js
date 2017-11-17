@@ -5,6 +5,8 @@ const path = require('path');
 
 const movieAPI = require('../lib/movieAPI');
 
+const db = require('../database');
+
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -22,7 +24,7 @@ app.listen(3000, function () { console.log('MovieList app listening on port 3000
 var movies = [];
 
 app.get('/movies', function(req, res) {
-  res.statusCode = 200;
+
   res.send(movies);
 });
 
@@ -45,7 +47,7 @@ app.get('/load', function(req, res) {
             original_language: movie.original_language,
             original_title: movie.original_title,
             overview: movie.overview,
-            release_data: movie.release_date,
+            release_date: movie.release_date,
             vote_average: movie.vote_average,
             popularity: movie.popularity
           },
